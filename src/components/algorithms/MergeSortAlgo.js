@@ -42,12 +42,16 @@ function Merge(animationArray,array,startInd,mid,endInd){
     while(i <= mid && j <= endInd){
         // console.log(i,j);
         if(left[i-startInd] <= right[j-mid-1]){
+            animationArray.push([i,j]);
+            animationArray.push([i,j]);
+            animationArray.push([k,left[i-startInd]]);
             array[k++]=left[i-startInd];
             i++;
         }
         else{
             animationArray.push([i,j]);
             animationArray.push([i,j]);
+            animationArray.push([k,right[j-mid-1]]);
             array[k++]=right[j-mid-1];
             j++;
         }
@@ -55,12 +59,15 @@ function Merge(animationArray,array,startInd,mid,endInd){
     while(i<=mid){
         animationArray.push([i,i]);
         animationArray.push([i,i]);
+
+        animationArray.push([k,left[i-startInd]]);
         array[k++]=left[i-startInd];
         i++;
     }
     while(j<=endInd){
         animationArray.push([j,j]);
         animationArray.push([j,j]);
+        animationArray.push([k,right[j-mid-1]]);
         array[k++]=right[j-mid-1];
         j++;
     }
