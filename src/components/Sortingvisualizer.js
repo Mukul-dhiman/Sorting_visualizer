@@ -7,29 +7,43 @@ class Sortingvisualizer extends React.Component{
         super(props);
         
         this.state = {
+            array_length: 200,
             array: []
         };
+        // this.setArrayLen = this.setArrayLen.bind(this);
     }
 
     componentDidMount(){
+        // this.setState({array_length: 200});
+        console.log("mount");
         this.resetArray();
     }
 
 
     resetArray(){
-        const array_length = 500;
+        const array_length = this.state.array_length;
         const array=[];
         for(let i=0;i<array_length;i++){
             array.push(randomInt(5,1000));
         }
         this.setState({array: array});
     }
+
+    setArrayLen = e => {
+        const new_length = e.target.value;
+        this.setState({array_length: new_length},
+        function(){
+            console.log("update");
+        }
+        );    
+        // this.state.array_length=event.target.value;
+    }
     
     MergeSort(){
         // console.log("h");
         const height_of_bar = (window.innerHeight)/1100;
 
-        console.log(this.state.array);
+        // console.log(this.state.array);
         const animationArray = GetAnimationArray(this.state.array);
         // console.log(animationArray);
         const arrayBars = document.getElementsByClassName('array-bar');
@@ -60,7 +74,7 @@ class Sortingvisualizer extends React.Component{
                 
             }
         }
-        console.log(this.state.array);
+        // console.log(this.state.array);
     }
     QuickSort(){}
     HeapSort(){}
@@ -72,15 +86,20 @@ class Sortingvisualizer extends React.Component{
         const width_of_bar = ((window.innerWidth-120)/array_length)-2;
         const height_of_bar = (window.innerHeight)/1100; 
 
-        return (
+        return (            
             <div className="array-container" style={
                 {minHeight: `${window.innerHeight}px`}
             }>
+                {/* <input type="text" placeholder="length_of_array" > </input> */}
                 {array.map((value,idx) => (
                     <div className="array-bar" key={idx} style={
                         {width:`${width_of_bar}px`,height:`${value*height_of_bar}px`}
                     }></div>
                 ))}
+                <form onSubmit={this.setArrayLen}>
+                    <input type='text' placeholder={this.state.array_length} />
+                    <button type="submit">enter</button>
+                </form>
                 <button onClick={() => (this.resetArray())}>Reset Array</button>
                 <button onClick={() => (this.MergeSort())}>merge sort</button>
                 <button onClick={() => (this.QuickSort())}>quick sort</button>
