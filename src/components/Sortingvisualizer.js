@@ -15,7 +15,7 @@ class Sortingvisualizer extends React.Component{
 
     componentDidMount(){
         // this.setState({array_length: 200});
-        console.log("mount");
+        // console.log("mount");
         this.resetArray();
     }
 
@@ -29,13 +29,11 @@ class Sortingvisualizer extends React.Component{
         this.setState({array: array});
     }
 
-    setArrayLen = e => {
-        const new_length = e.target.value;
-        this.setState({array_length: new_length},
-        function(){
-            console.log("update");
-        }
-        );    
+    
+    setArrayLen(e) {
+        console.log(e.target.value);
+        this.setState({array_length: e.target.value});
+           
         // this.state.array_length=event.target.value;
     }
     
@@ -82,7 +80,7 @@ class Sortingvisualizer extends React.Component{
 
     render() {
         const {array}=this.state;
-        const array_length = array.length;
+        const {array_length} = this.state;
         const width_of_bar = ((window.innerWidth-120)/array_length)-2;
         const height_of_bar = (window.innerHeight)/1100; 
 
@@ -96,7 +94,8 @@ class Sortingvisualizer extends React.Component{
                         {width:`${width_of_bar}px`,height:`${value*height_of_bar}px`}
                     }></div>
                 ))}
-                <form onSubmit={this.setArrayLen}>
+                <h1>{this.state.array_length}</h1>
+                <form onSubmit={event => this.setArrayLen(event.target.value)}>
                     <input type='text' placeholder={this.state.array_length} />
                     <button type="submit">enter</button>
                 </form>
